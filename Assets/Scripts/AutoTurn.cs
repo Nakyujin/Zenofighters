@@ -1,27 +1,37 @@
 using UnityEngine;
 
-public class AutoTurn : MonoBehaviour
+public class CharacterSpriteFlipper : MonoBehaviour
 {
     public Transform otherCharacter;
-    private SpriteRenderer spriteRenderer;
-    
-    void Start()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
 
     void Update()
     {
         if (otherCharacter != null)
         {
-            if (transform.position.x < otherCharacter.position.x)
+            // Check if the other character is on the right or left side
+            bool isOnRightSide = transform.position.x < otherCharacter.position.x;
+
+            // Flip the sprite based on the relative positions of the characters
+            if (isOnRightSide)
             {
-                transform.localScale = new Vector3(-1f, 1f, 1f); 
+                FlipSprite(false);
+            }
+            else
+            {
+                FlipSprite(true);
             }
         }
         else
         {
             Debug.LogWarning("Other character transform is not assigned!");
         }
+    }
+
+    void FlipSprite(bool facingRight)
+    {
+        // Set the scale along the X axis to flip the sprite horizontally
+        Vector3 newScale = transform.localScale;
+        newScale.x = facingRight ? Mathf.Abs(newScale.x) : -Mathf.Abs(newScale.x);
+        transform.localScale = newScale;
     }
 }

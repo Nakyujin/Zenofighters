@@ -5,6 +5,7 @@ public class HitboxController : MonoBehaviour
 {
     public PlayerAttack playerattack;
     public PlayerMovement playermovement;
+    public PlayerHealth playerhealth;
     private bool hitDetected = false; 
     public int damageAmount = 10;
     public float hitStopDuration = 0.1f;
@@ -52,10 +53,11 @@ public class HitboxController : MonoBehaviour
     }
 
     void ApplyHitStun(GameObject player)
-{
+    {
     Debug.Log("Hitstun applied");
     PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-    if (playerAttack != null)
+    PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+    if (playerAttack != null && playerHealth.isAlive == true)
     {
         playerAttack.OnAttackInterrupted();
         playerAttack.ChangeAnimationState("gethit");
@@ -63,9 +65,9 @@ public class HitboxController : MonoBehaviour
     }
     else
     {
-        Debug.LogWarning("PlayerAttack component not found on the player GameObject.");
+        playerAttack.ChangeAnimationState("death");
     }
-}
+    }
 
 IEnumerator HitStunCoroutine(PlayerAttack playerAttack)
 {

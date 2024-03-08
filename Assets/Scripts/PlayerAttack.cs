@@ -349,5 +349,6 @@ public class PlayerAttack : MonoBehaviour
         jumpkick2Hitbox.enabled = false;
         kick2Hitbox.enabled = false;
     }
+
 }
 

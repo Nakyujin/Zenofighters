@@ -8,7 +8,6 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     public bool lowHp = false;
     public bool isAlive = true;
-    public PlayerAttack playerattack;
 
 
     public Image healthBar; 
@@ -43,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
     {
         isAlive = false;
         Debug.Log("Player died!");
-        
+
     }
 
     void UpdateHealthBar()
